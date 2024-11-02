@@ -1,20 +1,19 @@
 package cpsc457a3;
 
 public class BroadcastAgent extends Thread{
-//	private final int id;
-//	private final LocalMemory localMemory;
-//	private final BroadcastSystem broadcastSystem;
-//	
-//	public BroadcastAgent(int id,LocalMemory localMemory, BroadcastSystem broadcastSystem) {
-//		this.id = id;
-//		this.localMemory = localMemory;
-//		this.broadcastSystem = broadcastSystem;
-//	}
+	private BroadcastSystem system;
+	private LocalMemory localMemory;
 	
-	public void broadcast(String x, int v){
+	public BroadcastAgent (BroadcastSystem system, LocalMemory localMemory) {
+		this.system = system;
+		this.localMemory = localMemory;
 	}
 	
-	public void receive(){
-
+	public void broadcast(String message){
+		system.broadcast(message);
+	}
+	
+	public void receive(String message){
+		localMemory.store(turn, i)
 	}
 }

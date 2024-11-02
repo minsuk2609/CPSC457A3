@@ -4,13 +4,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class LocalMemory {
-	private final Map<String, Integer> LocMemory = new HashMap<>();
+	private Map<Integer, String> LocMemory = new HashMap<>();
 	
-	public synchronized int load(String x) {
+	public synchronized String load(int x) {
 		return LocMemory.get(x);
 	}
 	
-	public synchronized int store(String x, int v) {
-		return LocMemory.put(x, v);
+	public synchronized void store(int x, String v) {
 	}
 }

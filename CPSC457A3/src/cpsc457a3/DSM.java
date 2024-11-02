@@ -9,14 +9,12 @@ public class DSM {
         this.broadcastAgent = broadcastAgent;
     }
     
-    public void store(String x, int val) {
-        localMemory.store(x, val);
-		broadcastAgent.broadcast(x, val);
-
+    public void store(int turn, int val) {
+        localMemory.store(turn, val);
+		broadcastAgent.broadcast(turn, val);
     }
     
     public int load(String x) {
         return localMemory.load(x);
     }
 }
-
