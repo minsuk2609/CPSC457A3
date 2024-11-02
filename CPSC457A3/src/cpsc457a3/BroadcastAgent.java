@@ -14,6 +14,10 @@ public class BroadcastAgent extends Thread{
 	}
 	
 	public void receive(String message){
-		localMemory.store(turn, i)
+		//Splitting message string and storing it in the local memory
+		String[] splitString = message.split(" ");
+		int turn = Integer.valueOf(splitString[0]);
+		String i = splitString[1];
+		localMemory.store(turn, i);
 	}
 }
