@@ -6,14 +6,29 @@ import java.util.Map;
 
 public class LocalMemory {
 	//Making two seperate list for turns and flags
-	private ArrayList<Integer> turnList = new ArrayList<>();
-	private ArrayList<Integer> flagList = new ArrayList<>();
-	private Map<Integer, String> LocMemory = new HashMap<>();
+	private ArrayList<Integer> turnList;
+	private ArrayList<Integer> flagList;
 	
-	public synchronized String load(int x) {
-		return LocMemory.get(x);
+	public LocalMemory(ArrayList<Integer> turnList, ArrayList<Integer> flagList) {
+		this.turnList = turnList;
+		this.flagList = flagList;
 	}
 	
-	public synchronized void store(int x, String v) {
+	public synchronized int load(int index, boolean turn) {
+		if (turn) {
+			return turnList.get(index);
+		}
+		else {
+			return flagList.get(index);
+		}
+	}
+	
+	public synchronized void store(int index, int value, boolean turn) {
+		if (turn) {
+			turnList.add(index, value);
+		} 
+		else {
+			flagList.add(index, value);
+		}
 	}
 }

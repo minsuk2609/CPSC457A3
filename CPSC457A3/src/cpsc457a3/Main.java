@@ -1,14 +1,32 @@
 package cpsc457a3;
 
+import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
+
 public class Main {
     public static void main(String[] args) {
-    	
-    	BroadcastSystem system = new BroadcastSystem();
-    	
-		
-    	BroadcastAgent agent = new BroadcastAgent(system);
-    	BroadcastAgent agent1 = new BroadcastAgent(system);
-
-	    
+    	ArrayList<Integer> turnList = new ArrayList<Integer>();
+    	ArrayList<Integer> flagList = new ArrayList<Integer>();
+    	CopyOnWriteArrayList<BroadcastAgent> agents = new CopyOnWriteArrayList<BroadcastAgent>();
+    	int numOfProcs = 10;
+    	for (int i = 0; i < numOfProcs; i++) {
+    		turnList.add(i, -1);
+    		
+    	}
+    	for (int i = 0; i < numOfProcs - 1; i++) {
+    		flagList.add(i, 0);
+    		
+    	}
+    	LocalMemory mem = new LocalMemory(turnList, flagList);
+    	BroadcastSystem broadcastsystem = new BroadcastSystem(agents);
+    	for (int i = 0; i < numOfProcs; i++) {
+    		BroadcastAgent agent = new BroadcastAgent(broadcastsystem, mem);
+    		broadcastsystem.addAgent(agent);
+    		DSM dsm = new DSM(mem, agent);
+    		Processor procs = new Processor(i, dsm, numOfProcs);
+    		new Thread(agent).start();
+    		new Thread(dsm).start();
+    		new Thread(procs).start();
+    	}
     }
 }

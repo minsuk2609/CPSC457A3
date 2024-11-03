@@ -1,6 +1,6 @@
 package cpsc457a3;
 
-public class BroadcastAgent extends Thread{
+public class BroadcastAgent extends Thread {
 	private BroadcastSystem system;
 	private LocalMemory localMemory;
 	
@@ -16,8 +16,14 @@ public class BroadcastAgent extends Thread{
 	public void receive(String message){
 		//Splitting message string and storing it in the local memory
 		String[] splitString = message.split(" ");
-		int turn = Integer.valueOf(splitString[0]);
-		String i = splitString[1];
-		localMemory.store(turn, i);
+		int index = Integer.valueOf(splitString[0]);
+		int value = Integer.valueOf(splitString[1]);
+		boolean turn = Boolean.parseBoolean(splitString[2]);
+		localMemory.store(index, value, turn);
 	}
+	
+    @Override
+    public void run() {
+    	while(true);
+    }
 }
