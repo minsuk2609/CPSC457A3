@@ -8,19 +8,17 @@ public class Main {
     	ArrayList<Integer> turnList = new ArrayList<Integer>();
     	ArrayList<Integer> flagList = new ArrayList<Integer>();
     	CopyOnWriteArrayList<BroadcastAgent> agents = new CopyOnWriteArrayList<BroadcastAgent>();
-    	int numOfProcs = 10;
+    	int numOfProcs = 50;
     	for (int i = 0; i < numOfProcs; i++) {
     		turnList.add(i, -1);
-    		
     	}
     	for (int i = 0; i < numOfProcs - 1; i++) {
     		flagList.add(i, 0);
-    		
     	}
     	LocalMemory mem = new LocalMemory(turnList, flagList);
     	BroadcastSystem broadcastsystem = new BroadcastSystem(agents);
     	for (int i = 0; i < numOfProcs; i++) {
-    		BroadcastAgent agent = new BroadcastAgent(broadcastsystem, mem);
+    		BroadcastAgent agent = new BroadcastAgent(broadcastsystem);
     		broadcastsystem.addAgent(agent);
     		DSM dsm = new DSM(mem, agent);
     		Processor procs = new Processor(i, dsm, numOfProcs);

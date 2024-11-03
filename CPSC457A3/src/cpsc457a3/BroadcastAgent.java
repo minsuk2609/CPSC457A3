@@ -1,25 +1,33 @@
 package cpsc457a3;
 
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
+
 public class BroadcastAgent extends Thread {
 	private BroadcastSystem system;
-	private LocalMemory localMemory;
+	private BlockingQueue<String> messageQ = new LinkedBlockingQueue<String>(); 
 	
-	public BroadcastAgent (BroadcastSystem system, LocalMemory localMemory) {
+	public BroadcastAgent (BroadcastSystem system) {
 		this.system = system;
-		this.localMemory = localMemory;
 	}
 	
 	public void broadcast(String message){
 		system.broadcast(message);
 	}
 	
+	public String receiveMessage() {
+		try {
+			return messageQ.take();
+			
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
+			return null;
+		}
+	}
+	
 	public void receive(String message){
 		//Splitting message string and storing it in the local memory
-		String[] splitString = message.split(" ");
-		int index = Integer.valueOf(splitString[0]);
-		int value = Integer.valueOf(splitString[1]);
-		boolean turn = Boolean.parseBoolean(splitString[2]);
-		localMemory.store(index, value, turn);
+		messageQ.add(message);
 	}
 	
     @Override

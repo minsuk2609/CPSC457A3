@@ -24,7 +24,14 @@ public class DSM extends Thread{
     
     @Override
     public void run() {
-    	while(true);
+    	while(true) {
+    		String message = broadcastAgent.receiveMessage();
+    		String[] splitString = message.split(" ");
+    		int index = Integer.valueOf(splitString[0]);
+    		int value = Integer.valueOf(splitString[1]);
+    		boolean turn = Boolean.parseBoolean(splitString[2]);
+    		localMemory.store(index, value, turn);
+    	}
     }
     
 }

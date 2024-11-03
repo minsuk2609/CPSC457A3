@@ -17,8 +17,9 @@ public class Processor extends Thread{
 		for (int k = 0; k <= numOfProcs - 2; k++) {
 			dsm.store(id + " " + k + " " + false);
 			dsm.store(k + " " + id + " " + true);
-			boolean exists = false;
+			boolean exists = true;
 			do {
+				exists = false;
 				for (int j = 0; j < numOfProcs; j++) {
 					if (j != id) {
 						if (dsm.load(j, false) >= k) {
