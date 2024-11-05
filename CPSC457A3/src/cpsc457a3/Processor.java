@@ -15,8 +15,8 @@ public class Processor extends Thread{
 	public void run() {
 		//Entry Section
 		for (int k = 0; k <= numOfProcs - 2; k++) {
-			dsm.store(id + " " + k + " " + false);
-			dsm.store(k + " " + id + " " + true);
+			dsm.store(id, k, false);
+			dsm.store(k, id, true);
 			boolean exists = true;
 			do {
 				exists = false;
@@ -41,7 +41,7 @@ public class Processor extends Thread{
 		
 		System.out.println("Process " + id + " is leaving the critical section");
 		
-		dsm.store(id + " " + -1 + " " + false);
+		dsm.store(id, -1, false);
 	}
 	
 

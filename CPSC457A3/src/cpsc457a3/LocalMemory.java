@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class LocalMemory {
-	//Making two seperate list for turns and flags
+	//Making two separate list for turns and flags
 	private ArrayList<Integer> turnList;
 	private ArrayList<Integer> flagList;
 	
@@ -14,6 +14,7 @@ public class LocalMemory {
 		this.flagList = flagList;
 	}
 	
+	// if turn flag is true, then load from the turn list. Else, load from flag list
 	public synchronized int load(int index, boolean turn) {
 		if (turn) {
 			return turnList.get(index);
@@ -23,6 +24,7 @@ public class LocalMemory {
 		}
 	}
 	
+	// if turn flag is true, then store value at index into turn list. Else, store into flag list
 	public synchronized void store(int index, int value, boolean turn) {
 		if (turn) {
 			turnList.add(index, value);

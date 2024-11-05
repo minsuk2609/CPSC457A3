@@ -1,24 +1,32 @@
 package cpsc457a3;
 
-import java.util.concurrent.CopyOnWriteArrayList;
 
-public class BroadcastSystem extends Thread{
-    private CopyOnWriteArrayList<BroadcastAgent> agents;
+import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.Map;
+import java.util.Queue;
 
-    public BroadcastSystem(CopyOnWriteArrayList<BroadcastAgent> agents) {
-        this.agents = agents;
+public class BroadcastSystem{
+	//Map of agents, with their own copy of messages
+    private Map<BroadcastAgent, Queue<String>> agents;
+
+    public BroadcastSystem() {
+        this.agents = new ConcurrentHashMap<>();
     }
     
-    // Method to broadcast a message to all agents
+    public void addAgent(BroadcastAgent agent) {
+    	agents.put(agent, new ConcurrentLinkedQueue<>());
+    }
+    
     public void broadcast(String message) {
-        for (BroadcastAgent agent : agents) {
-                agent.receive(message);
+        for (Queue<String> queue : agents.values()) {
+            queue.add(message);
         }
     }
-    
-    // Add an agent to the system
-    public void addAgent(BroadcastAgent agent) {
-        agents.add(agent);
+
+    public String receive(BroadcastAgent agent) {
+        Queue<String> queue = agents.get(agent);
+        return (queue != null) ? queue.poll() : null;
     }
 	
 }
