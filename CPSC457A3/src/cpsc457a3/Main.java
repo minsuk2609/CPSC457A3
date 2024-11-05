@@ -14,9 +14,9 @@ public class Main {
     	for (int i = 0; i < numOfProcs - 1; i++) {
     		flagList.add(i, 0);
     	}
-    	LocalMemory mem = new LocalMemory(turnList, flagList);
     	BroadcastSystem broadcastsystem = new BroadcastSystem();
     	for (int i = 0; i < numOfProcs; i++) {
+    		LocalMemory mem = new LocalMemory(turnList, flagList);
     		BroadcastAgent agent = new BroadcastAgent(broadcastsystem);
     		DSM dsm = new DSM(mem, agent);
     		Processor procs = new Processor(i, dsm, numOfProcs);
