@@ -15,12 +15,15 @@ public class Processor extends Thread {
     
     @Override
     public void run() {
+    	String token = null;
 		//Entry Section
     	for (int k = 0; k <= numOfProcs - 2; k++) {
 			//flag
 			dsm.store(id, k, false, false);
+			
+			token = ringAgent.receiveToken();
 			//turn
-			dsm.store(k, id, true, ringAgent.receiveToken().isBlank());
+			dsm.store(k, id, true, token.isBlank());
 			boolean exists = true;
 			do {
 				exists = false;
@@ -46,6 +49,7 @@ public class Processor extends Thread {
 		System.out.println("Process " + id + " is leaving the critical section");
 		
 		dsm.store(id, -1, false, false);
-        
+        ringAgent.ringSuccessor.setToken(new Token(token));
+		
     }
 }
