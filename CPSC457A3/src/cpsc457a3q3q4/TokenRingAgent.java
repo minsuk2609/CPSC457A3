@@ -14,14 +14,9 @@ public class TokenRingAgent extends Thread {
 	}
 
 	// Method to receive the token from the predecessor
-	public synchronized String receiveToken() {
+	public String receiveToken() {
 	    while (this.token == null) {
-	        try {
-	            wait();  // Wait for the token to be available
-	        } catch (InterruptedException e) {
-	            e.printStackTrace();
-	        }
-	    }
+	    };
 	    String tokenId = token.getId(); // Get the token ID
 	    this.token = null; // Consume the token
 	    return tokenId;
@@ -30,6 +25,5 @@ public class TokenRingAgent extends Thread {
 	// Method to receive a new token (sets the token directly)
 	public synchronized void setToken(Token t) {
 		this.token = t;
-		notify();
 	}
 }

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
-        int numOfProcs = 3;
+        int numOfProcs = 2;
         
         // Initialize the turn and flag lists for the DSM
         ArrayList<Integer> turnList = new ArrayList<>();
