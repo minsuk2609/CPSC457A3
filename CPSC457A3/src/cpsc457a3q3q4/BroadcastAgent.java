@@ -12,7 +12,6 @@ public class BroadcastAgent extends Thread {
 		system.broadcast(message);
 	}
 	
-	
     public String receive() {
         return system.receive(this);
     }
