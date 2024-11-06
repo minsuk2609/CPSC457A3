@@ -1,4 +1,4 @@
-package cpsc457a3;
+package cpsc457a3q3q4;
 
 public class BroadcastAgent extends Thread {
 	private BroadcastSystem system;
@@ -11,7 +11,6 @@ public class BroadcastAgent extends Thread {
 	public void broadcast(String message){
 		system.broadcast(message);
 	}
-	
 	
     public String receive() {
         return system.receive(this);
