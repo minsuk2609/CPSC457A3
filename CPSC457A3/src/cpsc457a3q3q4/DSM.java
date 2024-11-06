@@ -10,10 +10,7 @@ public class DSM extends Thread{
     }
     
     public void store(int index, int value, boolean turn, boolean noToken) {
-    	while(turn == true && noToken) {
-    		
-    	};
-    	
+    	while(turn == true && noToken);
 		localMemory.store(index, value, turn);
 		String message = String.format("%d %d %b", index, value, turn);
 		broadcastAgent.broadcast(message);

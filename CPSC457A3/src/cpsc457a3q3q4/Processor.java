@@ -20,9 +20,8 @@ public class Processor extends Thread {
     	for (int k = 0; k <= numOfProcs - 2; k++) {
 			//flag
 			dsm.store(id, k, false, false);
-			
 			token = ringAgent.receiveToken();
-			//turn
+			System.out.println(token);
 			dsm.store(k, id, true, token.isBlank());
 			boolean exists = true;
 			do {

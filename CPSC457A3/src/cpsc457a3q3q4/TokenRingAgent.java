@@ -15,8 +15,9 @@ public class TokenRingAgent extends Thread {
 
 	// Method to receive the token from the predecessor
 	public String receiveToken() {
-	    while (this.token == null) {
-	    };
+		if (this.token == null) {
+			return "test";
+		}
 	    String tokenId = token.getId(); // Get the token ID
 	    this.token = null; // Consume the token
 	    return tokenId;
