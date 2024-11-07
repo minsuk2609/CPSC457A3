@@ -1,4 +1,4 @@
-package cpsc457a3;
+package withtoken;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,8 +10,8 @@ public class LocalMemory {
 	//Making two separate list for turns and flags
 	private ArrayList<Integer> turnList;
 	private ArrayList<Integer> flagList;
-	private volatile Set<Integer> processMap;
-	private volatile int counter = 0;
+	private Set<Integer> processMap;
+	private int counter = 0;
 	
 	public LocalMemory(ArrayList<Integer> turnList, ArrayList<Integer> flagList) {
 		this.turnList = turnList;
