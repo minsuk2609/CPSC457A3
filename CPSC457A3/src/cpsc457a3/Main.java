@@ -7,7 +7,7 @@ public class Main {
     public static void main(String[] args) {
     	ArrayList<Integer> turnList = new ArrayList<Integer>();
     	ArrayList<Integer> flagList = new ArrayList<Integer>();
-    	int numOfProcs = 10;
+    	int numOfProcs = 20;
     	for (int i = 0; i < numOfProcs; i++) {
     		turnList.add(i, -1);
     	}
@@ -15,8 +15,8 @@ public class Main {
     		flagList.add(i, 0);
     	}
     	BroadcastSystem broadcastsystem = new BroadcastSystem();
+		LocalMemory mem = new LocalMemory(turnList, flagList);
     	for (int i = 0; i < numOfProcs; i++) {
-    		LocalMemory mem = new LocalMemory(turnList, flagList);
     		BroadcastAgent agent = new BroadcastAgent(broadcastsystem);
     		DSM dsm = new DSM(mem, agent);
     		Processor procs = new Processor(i, dsm, numOfProcs);

@@ -32,9 +32,9 @@ public class Main {
         tokenRing.startTokenRing();
         
         // Create processors, DSMs, and TokenRingAgents
+        LocalMemory mem = new LocalMemory(turnList, flagList);
         for (int i = 0; i < numOfProcs; i++) {
             // Create local memory and broadcast agent for each processor
-            LocalMemory mem = new LocalMemory(turnList, flagList);
             BroadcastAgent agent = new BroadcastAgent(broadcastSystem);
             DSM dsm = new DSM(mem, agent);
                     
