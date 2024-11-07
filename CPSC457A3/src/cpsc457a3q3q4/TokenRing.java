@@ -28,10 +28,10 @@ public class TokenRing {
         // Initially give the token to the first agent
     	ringAgents.get(0).setToken(this.token);
     	
-        // Start the agents in their own threads
-        for (TokenRingAgent agent : ringAgents) {
-            new Thread(agent).start();  // Assuming TokenRingAgent implements Runnable
-        }
+//        // Start the agents in their own threads
+//        for (TokenRingAgent agent : ringAgents) {
+//            new Thread(agent).start();  // Assuming TokenRingAgent implements Runnable
+//        }
     }
     
     public TokenRingAgent getAgent(int agentId) {

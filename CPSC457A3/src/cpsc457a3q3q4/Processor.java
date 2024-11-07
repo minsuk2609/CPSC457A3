@@ -19,10 +19,23 @@ public class Processor extends Thread {
 		//Entry Section
     	for (int k = 0; k <= numOfProcs - 2; k++) {
 			//flag
-			dsm.store(id, k, false, false);
-			token = ringAgent.receiveToken();
-			System.out.println(token);
-			dsm.store(k, id, true, token.isBlank());
+			dsm.store(id, k, false);
+			while (true) {
+				token = ringAgent.receiveToken();
+				boolean tokenStatus = !token.isBlank();
+				dsm.tokenStatus(tokenStatus);
+				
+				if (tokenStatus) break;
+				
+				try {
+					Thread.sleep(100);
+				} catch (InterruptedException e) {
+					Thread.currentThread().interrupt();
+					e.printStackTrace();
+				}
+			}
+			dsm.store(k, id, true);
+			ringAgent.ringSuccessor.setToken(new Token(token));
 			boolean exists = true;
 			do {
 				exists = false;
@@ -44,11 +57,12 @@ public class Processor extends Thread {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+		dsm.increment(id);
 		
+		dsm.decrement(id);
 		System.out.println("Process " + id + " is leaving the critical section");
 		
-		dsm.store(id, -1, false, false);
-        ringAgent.ringSuccessor.setToken(new Token(token));
+		dsm.store(id, -1, false);
 		
     }
 }

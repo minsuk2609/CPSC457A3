@@ -8,12 +8,12 @@ public class BroadcastAgent extends Thread {
 		system.addAgent(this);
 	}
 	
-	public void broadcast(String message){
+	public synchronized void broadcast(String message){
 		system.broadcast(message);
 	}
 	
 	
-    public String receive() {
+    public synchronized String receive() {
         return system.receive(this);
     }
 	

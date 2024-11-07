@@ -38,7 +38,9 @@ public class Processor extends Thread{
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+		dsm.increment(id);
 		
+		dsm.decrement(id);
 		System.out.println("Process " + id + " is leaving the critical section");
 		
 		dsm.store(id, -1, false);

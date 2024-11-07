@@ -2,16 +2,21 @@ package cpsc457a3;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 public class LocalMemory {
 	//Making two separate list for turns and flags
 	private ArrayList<Integer> turnList;
 	private ArrayList<Integer> flagList;
+	private Set<Integer> processMap;
+	private int counter = 0;
 	
 	public LocalMemory(ArrayList<Integer> turnList, ArrayList<Integer> flagList) {
 		this.turnList = turnList;
 		this.flagList = flagList;
+		this.processMap = new HashSet<Integer>();
 	}
 	
 	// if turn flag is true, then load from the turn list. Else, load from flag list
@@ -32,5 +37,18 @@ public class LocalMemory {
 		else {
 			flagList.add(index, value);
 		}
+	}
+	
+	public synchronized void increment(int processId) {
+		counter ++;
+		processMap.add(processId);
+		if(counter > 1) {
+			System.out.println("Process " + processMap + " in critical section");
+		}
+	}
+	
+	public synchronized void decrement(int processId) {
+		counter --;
+		processMap.remove(processId);
 	}
 }
