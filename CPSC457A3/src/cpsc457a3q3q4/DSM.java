@@ -9,8 +9,8 @@ public class DSM extends Thread{
         this.broadcastAgent = broadcastAgent;
     }
     
-    public void store(int index, int value, boolean turn, boolean noToken) {
-    	while(turn == true && noToken) {
+    public void store(int index, int value, boolean turn, TokenRingAgent tra) {
+    	while(turn == true && tra.receiveToken() == "") {
     		
     	};
     	
