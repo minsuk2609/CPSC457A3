@@ -1,4 +1,4 @@
-package cpsc457a3q3q4;
+package cpsc457a3q3;
 
 public class Processor extends Thread {
     private DSM dsm;
@@ -15,11 +15,11 @@ public class Processor extends Thread {
     
     @Override
     public void run() {
-//    	String token = null;
 		//Entry Section
     	for (int k = 0; k <= numOfProcs - 2; k++) {
 			//flag
 			dsm.store(this.id, k, false, this.ringAgent);
+			
 			//turn
 			dsm.store(k, this.id, true, this.ringAgent);
 			
@@ -39,15 +39,15 @@ public class Processor extends Thread {
 		//Critical Section
 		System.out.println("Process " + id + " is in the critical section");
 		try {
-			Thread.sleep(2000);
+			Thread.sleep(1000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 		
 		System.out.println("Process " + id + " is leaving the critical section");
-		dsm.store(id, -1, false, this.ringAgent);
-		ringAgent.setToken(null);
+
 		ringAgent.ringSuccessor.setToken(new Token("Minsu"));
-		
+		dsm.store(id, -1, false, this.ringAgent);	
+		ringAgent.setToken(null);
     }
 }

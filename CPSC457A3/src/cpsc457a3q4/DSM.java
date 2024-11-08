@@ -1,4 +1,4 @@
-package cpsc457a3q3q4;
+package cpsc457a3q4;
 
 public class DSM extends Thread{
     private LocalMemory localMemory;
@@ -9,8 +9,8 @@ public class DSM extends Thread{
         this.broadcastAgent = broadcastAgent;
     }
     
-    public void store(int index, int value, boolean turn, TokenRingAgent tra) {
-    	while(tra.receiveToken() == "") {	
+    public synchronized void store(int index, int value, boolean turn, TokenRingAgent tra) {
+    	while(turn == true && (tra.receiveToken() != validTokenCheck(index))) {	
     		 try {
     	            Thread.sleep(1000);  // Simulate a delay before receiving the token
     	        } catch (InterruptedException e) {

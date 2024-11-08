@@ -1,4 +1,4 @@
-package cpsc457a3q3q4;
+package cpsc457a3q3;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
 
@@ -11,13 +11,13 @@ public class BroadcastAgent extends Thread {
 		this.messages = new ConcurrentLinkedQueue<String>();
 	}
 	
-	public synchronized  void broadcast(String message){
+	public synchronized void broadcast(String message){
 		for(BroadcastAgent agent : system.getAgents()) {
 			agent.receive(message);
 		}
 	}
 	
-    public void receive(String message) {
+    public synchronized void receive(String message) {
         messages.add(message);
     }
    
@@ -25,7 +25,6 @@ public class BroadcastAgent extends Thread {
 		return messages.poll();
 	}
 	
-    // Retrieve and process messages from the queue
     @Override
     public void run() {
         while (true);

@@ -1,4 +1,4 @@
-package cpsc457a3q3q4;
+package cpsc457a3q4;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,7 +15,7 @@ public class LocalMemory {
 	}
 	
 	// if turn flag is true, then load from the turn list. Else, load from flag list
-	public int load(int index, boolean turn) {
+	public synchronized int load(int index, boolean turn) {
 		if (turn) {
 			return turnList.get(index);
 		}
@@ -25,7 +25,7 @@ public class LocalMemory {
 	}
 	
 	// if turn flag is true, then store value at index into turn list. Else, store into flag list
-	public void store(int index, int value, boolean turn) {
+	public synchronized void store(int index, int value, boolean turn) {
 		if (turn) {
 			turnList.set(index, value);
 		} 

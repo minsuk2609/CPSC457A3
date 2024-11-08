@@ -1,4 +1,4 @@
-package cpsc457a3q3q4;
+package cpsc457a3q3;
 
 public class Token {
     private String id;  // Unique identifier for the token

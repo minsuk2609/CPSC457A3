@@ -1,4 +1,4 @@
-package cpsc457a3q3q4;
+package cpsc457a3q3;
 
 public class TokenRingAgent extends Thread {
 	public int processorId; // Logical ID for the processor
@@ -6,7 +6,7 @@ public class TokenRingAgent extends Thread {
 	public TokenRingAgent ringSuccessor; // Logical ID of successor in the ring
 	private boolean active; // Determines if the token ring is active
 	private Token token; // The token currently held
-
+	
 	// Constructor to initialize TokenRingAgent
 	public TokenRingAgent(int processorId, int ringPredecessor, int ringSuccessor, boolean active) {
 		this.processorId = processorId;

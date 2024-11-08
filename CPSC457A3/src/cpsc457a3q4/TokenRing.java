@@ -1,13 +1,14 @@
-package cpsc457a3q3q4;
+package cpsc457a3q4;
 
 import java.util.ArrayList;
 
 public class TokenRing {
 
     private ArrayList<TokenRingAgent> ringAgents;
-    private Token token = new Token("Minsu");   // The token to be passed around the ring
+    private Token token;
 
-    public TokenRing(ArrayList<TokenRingAgent> ringAgents) {
+    public TokenRing(ArrayList<TokenRingAgent> ringAgents, String tokenId) {
+    	this.token = new Token(tokenId);
         this.ringAgents = ringAgents;
         
         // Step 2: Link the agents in a ring (circular linked structure)
