@@ -30,14 +30,14 @@ public class DSM extends Thread{
     @Override
     public void run() {
     	while(true) {
-            String message = broadcastAgent.receive();
-            if (message != null) {
-                String[] splitString = message.split(" ");
-                int index = Integer.parseInt(splitString[0]);
-                int value = Integer.parseInt(splitString[1]);
-                boolean turn = Boolean.parseBoolean(splitString[2]);
-                localMemory.store(index, value, turn);
-            }
+    		String message = broadcastAgent.inboxCheck();
+    		if(message != null) {
+    			String[] splitString = message.split(" ");
+    			int index = Integer.parseInt(splitString[0]);
+    			int value = Integer.parseInt(splitString[1]);
+    			boolean turn = Boolean.parseBoolean(splitString[2]);
+    			localMemory.store(index, value, turn);
+    		}
     	}
     }
     

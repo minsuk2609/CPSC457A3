@@ -15,7 +15,6 @@ public class Processor extends Thread {
     
     @Override
     public void run() {
-//    	String token = null;
 		//Entry Section
     	for (int k = 0; k <= numOfProcs - 2; k++) {
 			//flag
@@ -37,7 +36,7 @@ public class Processor extends Thread {
 		}
 		
 		//Critical Section
-		System.out.println("Process " + id + " is in the critical section");
+		System.out.println("Process " + id + " is in the critical section at: " + System.currentTimeMillis());
 		try {
 			Thread.sleep(2000);
 		} catch (InterruptedException e) {
@@ -46,7 +45,7 @@ public class Processor extends Thread {
 		dsm.increment(id);
 		
 		dsm.decrement(id);
-		System.out.println("Process " + id + " is leaving the critical section");
+		System.out.println("Process " + id + " is leaving the critical section at: " + System.currentTimeMillis());
 		dsm.store(id, -1, false, this.ringAgent);
 		ringAgent.setToken(null);
 		ringAgent.ringSuccessor.setToken(new Token("Minsu"));
