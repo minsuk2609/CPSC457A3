@@ -1,4 +1,4 @@
-package cpsc457a3q3q4;
+package withtoken;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,7 +20,7 @@ public class LocalMemory {
 	}
 	
 	// if turn flag is true, then load from the turn list. Else, load from flag list
-	public int load(int index, boolean turn) {
+	public synchronized int load(int index, boolean turn) {
 		if (turn) {
 			return turnList.get(index);
 		}
@@ -30,18 +30,17 @@ public class LocalMemory {
 	}
 	
 	// if turn flag is true, then store value at index into turn list. Else, store into flag list
-	public void store(int index, int value, boolean turn) {
+	public synchronized void store(int index, int value, boolean turn) {
 		if (turn) {
-			turnList.set(index, value);
+			turnList.add(index, value);
 		} 
 		else {
-			flagList.set(index, value);
+			flagList.add(index, value);
 		}
 	}
 	
-	
 	public synchronized void increment(int processId) {
-		counter += 1;
+		counter ++;
 		processMap.add(processId);
 		if(counter > 1) {
 			System.out.println("Process " + processMap + " in critical section");
@@ -49,7 +48,7 @@ public class LocalMemory {
 	}
 	
 	public synchronized void decrement(int processId) {
-		counter -= 1;
+		counter --;
 		processMap.remove(processId);
 	}
 }

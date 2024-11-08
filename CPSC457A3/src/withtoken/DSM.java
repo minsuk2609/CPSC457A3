@@ -1,4 +1,4 @@
-package cpsc457a3;
+package withtoken;
 
 public class DSM extends Thread{
     private LocalMemory localMemory;

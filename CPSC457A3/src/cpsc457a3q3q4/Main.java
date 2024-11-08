@@ -23,10 +23,18 @@ public class Main {
         // Initialize the TokenRingAgent list
         ArrayList<TokenRingAgent> ringAgents = new ArrayList<>();
         
+        for (int i = 0; i < numOfProcs; i++) {
+        	TokenRingAgent ringAgent = new TokenRingAgent(i, -1, -1, true);
+        	ringAgents.add(ringAgent);
+        }
+        // Create and start the TokenRing object
+        TokenRing tokenRing = new TokenRing(ringAgents);
+        tokenRing.startTokenRing();
+        
         // Create processors, DSMs, and TokenRingAgents
+        LocalMemory mem = new LocalMemory(turnList, flagList);
         for (int i = 0; i < numOfProcs; i++) {
             // Create local memory and broadcast agent for each processor
-            LocalMemory mem = new LocalMemory(turnList, flagList);
             BroadcastAgent agent = new BroadcastAgent(broadcastSystem);
             DSM dsm = new DSM(mem, agent);
                     
@@ -39,16 +47,14 @@ public class Main {
             broadcastSystem.addAgent(agent);
             
             // Assign the ring agent to the processor
-            Processor procs = new Processor(i, dsm, numOfProcs, ringAgent);  // Use the same `procs` object
+            Processor procs = new Processor(i, dsm, numOfProcs, ringAgents.get(i));  // Use the same `procs` object
             
             // Start the threads for agent, DSM, and processor
             new Thread(agent).start();
             new Thread(dsm).start();
             new Thread(procs).start();
+            new Thread(ringAgents.get(i)).start();
         }
         
-        // Create and start the TokenRing object
-        TokenRing tokenRing = new TokenRing(ringAgents);
-        tokenRing.startTokenRing();
     }
 }

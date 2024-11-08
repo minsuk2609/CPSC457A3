@@ -3,12 +3,15 @@ package cpsc457a3q3q4;
 public class DSM extends Thread{
     private LocalMemory localMemory;
     private BroadcastAgent broadcastAgent;
+    private volatile boolean noToken;
     
     public DSM(LocalMemory localMemory, BroadcastAgent broadcastAgent) {
         this.localMemory = localMemory;
         this.broadcastAgent = broadcastAgent;
+        this.noToken = true;
     }
     
+
     public void store(int index, int value, boolean turn, TokenRingAgent tra) {
     	while(tra.receiveToken() == "") {	
     		 try {
@@ -23,9 +26,21 @@ public class DSM extends Thread{
 		broadcastAgent.broadcast(message);
     }
     
-    public int load(int index, boolean turn) {
+    public synchronized void tokenStatus(boolean token) {
+    	this.noToken = !token;
+    }
+    
+    public synchronized int load(int index, boolean turn) {
         return localMemory.load(index, turn);
     }
+    
+	public synchronized void increment(int processId) {
+		localMemory.increment(processId);
+	}
+	
+	public synchronized void decrement(int processId) {
+		localMemory.decrement(processId);
+	}
     
     @Override
     public void run() {

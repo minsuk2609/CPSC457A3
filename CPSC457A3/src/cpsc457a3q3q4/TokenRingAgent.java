@@ -18,7 +18,6 @@ public class TokenRingAgent extends Thread {
 		if(this.token == null) {
 			return "";
 		}
-
 	    String tokenId = token.getId(); // Get the token ID
 	    return tokenId;
 	}
