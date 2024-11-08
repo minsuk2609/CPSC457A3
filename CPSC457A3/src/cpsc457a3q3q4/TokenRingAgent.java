@@ -15,11 +15,10 @@ public class TokenRingAgent extends Thread {
 
 	// Method to receive the token from the predecessor
 	public synchronized String receiveToken() {
-		if (this.token == null) {
+		if(this.token == null) {
 			return "";
 		}
 	    String tokenId = token.getId(); // Get the token ID
-	    this.token = null; // Consume the token
 	    return tokenId;
 	}
 
@@ -28,8 +27,9 @@ public class TokenRingAgent extends Thread {
 		this.token = t;
 	}
 	
-	@Override
-	public void run() {
-		while(true);
-	}
+    @Override
+    public void run() {
+    	while(true) {
+    	}
+    }
 }

@@ -11,12 +11,19 @@ public class DSM extends Thread{
         this.noToken = true;
     }
     
-    public synchronized void store(int index, int value, boolean turn) {
-		if (!noToken) {
-			localMemory.store(index, value, turn);
-			String message = String.format("%d %d %b", index, value, turn);
-			broadcastAgent.broadcast(message);
-		}
+
+    public void store(int index, int value, boolean turn, TokenRingAgent tra) {
+    	while(tra.receiveToken() == "") {	
+    		 try {
+    	            Thread.sleep(1000);  // Simulate a delay before receiving the token
+    	        } catch (InterruptedException e) {
+    	            e.printStackTrace();
+    	        }
+    	};
+    	
+		localMemory.store(index, value, turn);
+		String message = String.format("%d %d %b", index, value, turn);
+		broadcastAgent.broadcast(message);
     }
     
     public synchronized void tokenStatus(boolean token) {
@@ -38,14 +45,14 @@ public class DSM extends Thread{
     @Override
     public void run() {
     	while(true) {
-            String message = broadcastAgent.receive();
-            if (message != null) {
-                String[] splitString = message.split(" ");
-                int index = Integer.parseInt(splitString[0]);
-                int value = Integer.parseInt(splitString[1]);
-                boolean turn = Boolean.parseBoolean(splitString[2]);
-                localMemory.store(index, value, turn);
-            }
+    		String message = broadcastAgent.inboxCheck();
+    		if(message != null) {
+    			String[] splitString = message.split(" ");
+    			int index = Integer.parseInt(splitString[0]);
+    			int value = Integer.parseInt(splitString[1]);
+    			boolean turn = Boolean.parseBoolean(splitString[2]);
+    			localMemory.store(index, value, turn);
+    		}
     	}
     }
     

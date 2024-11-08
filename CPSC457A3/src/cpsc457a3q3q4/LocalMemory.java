@@ -20,7 +20,7 @@ public class LocalMemory {
 	}
 	
 	// if turn flag is true, then load from the turn list. Else, load from flag list
-	public synchronized int load(int index, boolean turn) {
+	public int load(int index, boolean turn) {
 		if (turn) {
 			return turnList.get(index);
 		}
@@ -30,12 +30,12 @@ public class LocalMemory {
 	}
 	
 	// if turn flag is true, then store value at index into turn list. Else, store into flag list
-	public synchronized void store(int index, int value, boolean turn) {
+	public void store(int index, int value, boolean turn) {
 		if (turn) {
-			turnList.add(index, value);
+			turnList.set(index, value);
 		} 
 		else {
-			flagList.add(index, value);
+			flagList.set(index, value);
 		}
 	}
 	

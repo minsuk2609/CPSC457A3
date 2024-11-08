@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
-        int numOfProcs = 3;
+        int numOfProcs = 50;
         
         // Initialize the turn and flag lists for the DSM
         ArrayList<Integer> turnList = new ArrayList<>();
@@ -13,8 +13,8 @@ public class Main {
         for (int i = 0; i < numOfProcs; i++) {
             turnList.add(i, -1);
         }
-        for (int i = 0; i < numOfProcs - 1; i++) {
-            flagList.add(i, 0);
+        for (int i = 0; i < numOfProcs; i++) {
+            flagList.add(i, -1);
         }
 
         // Initialize the broadcast system
@@ -38,8 +38,14 @@ public class Main {
             BroadcastAgent agent = new BroadcastAgent(broadcastSystem);
             DSM dsm = new DSM(mem, agent);
                     
+            
             // Create the TokenRingAgent for each processor
-                       
+            TokenRingAgent ringAgent = new TokenRingAgent(i, -1, -1, true);
+            
+            // Add ring agent to the list
+            ringAgents.add(ringAgent);
+            broadcastSystem.addAgent(agent);
+            
             // Assign the ring agent to the processor
             Processor procs = new Processor(i, dsm, numOfProcs, ringAgents.get(i));  // Use the same `procs` object
             
