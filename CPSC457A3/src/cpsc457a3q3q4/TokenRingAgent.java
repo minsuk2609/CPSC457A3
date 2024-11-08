@@ -18,9 +18,8 @@ public class TokenRingAgent extends Thread {
 		if(this.token == null) {
 			return "";
 		}
-		
+
 	    String tokenId = token.getId(); // Get the token ID
-	    this.token = null; // Consume the token
 	    return tokenId;
 	}
 
@@ -28,4 +27,10 @@ public class TokenRingAgent extends Thread {
 	public synchronized void setToken(Token t) {
 		this.token = t;
 	}
+	
+    @Override
+    public void run() {
+    	while(true) {
+    	}
+    }
 }

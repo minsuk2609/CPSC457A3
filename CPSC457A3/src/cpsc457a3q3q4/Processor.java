@@ -15,18 +15,16 @@ public class Processor extends Thread {
     
     @Override
     public void run() {
-    	String token = null;
+//    	String token = null;
 		//Entry Section
     	for (int k = 0; k <= numOfProcs - 2; k++) {
 			//flag
-			dsm.store(id, k, false, this.ringAgent);
-			
+			dsm.store(this.id, k, false, this.ringAgent);
 			//turn
-			dsm.store(k, id, true, this.ringAgent);
-			ringAgent.ringSuccessor.setToken(new Token(token));
-			boolean exists = true;
+			dsm.store(k, this.id, true, this.ringAgent);
+			
+			boolean exists = false;
 			do {
-				exists = false;
 				for (int j = 0; j < numOfProcs; j++) {
 					if (j != id) {
 						if (dsm.load(j, false) >= k) {
@@ -47,8 +45,9 @@ public class Processor extends Thread {
 		}
 		
 		System.out.println("Process " + id + " is leaving the critical section");
-		
 		dsm.store(id, -1, false, this.ringAgent);
+		ringAgent.setToken(null);
+		ringAgent.ringSuccessor.setToken(new Token("Minsu"));
 		
     }
 }
