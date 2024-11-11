@@ -1,4 +1,4 @@
-package cpsc457a3q3q4;
+package cpsc457q4;
 
 import java.util.ArrayList;
 import java.util.HashMap;

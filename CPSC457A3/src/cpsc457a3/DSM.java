@@ -21,10 +21,12 @@ public class DSM extends Thread{
     
 	public synchronized void increment(int processId) {
 		localMemory.increment(processId);
+		broadcastAgent.broadcast("Increment " + Integer.toString(processId));
 	}
 	
 	public synchronized void decrement(int processId) {
 		localMemory.decrement(processId);
+		broadcastAgent.broadcast("Decrement " + Integer.toString(processId));
 	}
     
     @Override
@@ -33,10 +35,20 @@ public class DSM extends Thread{
     		String message = broadcastAgent.inboxCheck();
     		if(message != null) {
     			String[] splitString = message.split(" ");
-    			int index = Integer.parseInt(splitString[0]);
-    			int value = Integer.parseInt(splitString[1]);
-    			boolean turn = Boolean.parseBoolean(splitString[2]);
-    			localMemory.store(index, value, turn);
+    			if (splitString[0].equals("Increment")) {
+    				int counter = Integer.parseInt(splitString[1]);
+    				localMemory.increment(counter);
+    			}
+    			else if(splitString[0].equals("Decrement")) {
+    				int counter = Integer.parseInt(splitString[1]);
+    				localMemory.decrement(counter);
+    			}
+    			else {
+        			int index = Integer.parseInt(splitString[0]);
+        			int value = Integer.parseInt(splitString[1]);
+        			boolean turn = Boolean.parseBoolean(splitString[2]);
+        			localMemory.store(index, value, turn);
+    			}
     		}
     	}
     }

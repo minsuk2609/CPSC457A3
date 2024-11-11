@@ -1,4 +1,4 @@
-package cpsc457a3q3q4;
+package cpsc457q4;
 
 public class DSM extends Thread{
     private LocalMemory localMemory;
@@ -11,7 +11,7 @@ public class DSM extends Thread{
     
 
     public void store(int index, int value, boolean turn, TokenRingAgent tra) {
-    	while(tra.receiveToken() == "") {	
+    	while(tra.receiveToken() == "") {
     		 try {
     	            Thread.sleep(1000);  // Simulate a delay before receiving the token
     	        } catch (InterruptedException e) {

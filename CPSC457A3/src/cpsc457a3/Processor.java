@@ -33,13 +33,12 @@ public class Processor extends Thread{
 		
 		//Critical Section
 		System.out.println("Process " + id + " is in the critical section at: " + System.currentTimeMillis());
+		dsm.increment(id);
 		try {
 			Thread.sleep(2000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		dsm.increment(id);
-		
 		dsm.decrement(id);
 		System.out.println("Process " + id + " is leaving the critical section at: " + System.currentTimeMillis());
 		

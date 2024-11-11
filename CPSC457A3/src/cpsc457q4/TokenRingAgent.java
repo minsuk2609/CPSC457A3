@@ -1,4 +1,4 @@
-package cpsc457a3q3q4;
+package cpsc457q4;
 
 public class TokenRingAgent extends Thread {
 	private int processorId; // Logical ID for the processor
@@ -21,25 +21,25 @@ public class TokenRingAgent extends Thread {
 	    String tokenId = token.getId(); // Get the token ID
 	    return tokenId;
 	}
-
 	
 	public synchronized Token getToken() {
 		return this.token;
 	}
+
 	// Method to receive a new token (sets the token directly)
 	public synchronized void setToken(Token t) {
 		this.token = t;
 	}
 	
-	public TokenRingAgent getRingSuccessor() {
+    public TokenRingAgent getRingSuccessor() {
 		return ringSuccessor;
 	}
 
 	public void setRingSuccessor(TokenRingAgent ringSuccessor) {
 		this.ringSuccessor = ringSuccessor;
 	}
-	
-    public TokenRingAgent getRingPredecessor() {
+
+	public TokenRingAgent getRingPredecessor() {
 		return ringPredecessor;
 	}
 
@@ -52,5 +52,4 @@ public class TokenRingAgent extends Thread {
     	while(true) {
     	}
     }
-
 }

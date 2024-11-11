@@ -42,7 +42,7 @@ public class LocalMemory {
 	public synchronized void increment(int processId) {
 		counter ++;
 		processMap.add(processId);
-		if(counter > 1) {
+		if(processMap.size() > 1) {
 			System.out.println("Process " + processMap + " in critical section");
 		}
 	}

@@ -1,4 +1,4 @@
-package cpsc457a3q3q4;
+package cpsc457q4;
 
 import java.util.ArrayList;
 
@@ -33,11 +33,11 @@ public class TokenRing {
     	return ringAgents.get(agentId);
     }
     
-    public Token getToken() {
-    	return this.token;
-    }
-    
     public void setToken(String token) {
     	this.token = new Token(token);
+    }
+    
+    public Token getToken() {
+    	return this.token;
     }
 }

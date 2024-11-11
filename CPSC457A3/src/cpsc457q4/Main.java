@@ -1,10 +1,10 @@
-package cpsc457a3q3q4;
+package cpsc457q4;
 
 import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
-        int numOfProcs = 50;
+        int numOfProcs = 5;
         
         // Initialize the turn and flag lists for the DSM
         ArrayList<Integer> turnList = new ArrayList<>();
@@ -27,10 +27,13 @@ public class Main {
         	TokenRingAgent ringAgent = new TokenRingAgent(i, -1, -1, true);
         	ringAgents.add(ringAgent);
         }
-        // Create and start the TokenRing object
-        TokenRing tokenRing = new TokenRing(ringAgents);
-        tokenRing.setToken("Minsu");
-        tokenRing.startTokenRing();
+        
+        for (int i = 0; i <= numOfProcs - 2; i++) {
+            // Create and start the TokenRing object
+            TokenRing tokenRing = new TokenRing(ringAgents);
+            tokenRing.setToken(Integer.toString(i));
+            tokenRing.startTokenRing();
+        }
         
         // Create processors, DSMs, and TokenRingAgents
         LocalMemory mem = new LocalMemory(turnList, flagList);

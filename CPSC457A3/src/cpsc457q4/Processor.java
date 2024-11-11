@@ -1,4 +1,4 @@
-package cpsc457a3q3q4;
+package cpsc457q4;
 
 public class Processor extends Thread {
     private DSM dsm;
@@ -22,6 +22,7 @@ public class Processor extends Thread {
 			//turn
 			dsm.store(k, this.id, true, this.ringAgent);
 			
+			System.out.println(ringAgent.getToken().getId());
 			boolean exists = false;
 			do {
 				for (int j = 0; j < numOfProcs; j++) {
@@ -43,7 +44,6 @@ public class Processor extends Thread {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		
 		System.out.println("Process " + id + " is leaving the critical section at: " + System.currentTimeMillis());
 		dsm.decrement(id);
 		dsm.store(id, -1, false, this.ringAgent);
